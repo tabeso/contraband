@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.name          = 'contraband'
   gem.version       = Contraband::VERSION
   gem.authors       = ['Gabriel Evans']
-  gem.email         = ['gabriel@codeconcoction.com']
+  gem.email         = ['gabe@tabeso.com']
   gem.description   = %q{Clean data importation from external resources.}
   gem.summary       = %q{Clean data importation from external resources.}
   gem.homepage      = 'https://github.com/tabeso/contraband'
@@ -16,4 +16,24 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
+
+  gem.add_dependency 'activesupport', '>= 3.1', '< 3.3'
+
+  gem.add_development_dependency 'bundler'
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'yard'
+  gem.add_development_dependency 'redcarpet'
+  gem.add_development_dependency 'pry'
+
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'simplecov'
+
+  gem.add_development_dependency 'guard'
+  gem.add_development_dependency 'guard-bundler'
+  gem.add_development_dependency 'guard-rspec'
+  gem.add_development_dependency 'guard-yard'
+  gem.add_development_dependency 'rb-fsevent'
+  gem.add_development_dependency 'rb-inotify'
+  gem.add_development_dependency 'growl'
+  gem.add_development_dependency 'terminal-notifier-guard'
 end
