@@ -1,0 +1,19 @@
+en:
+  contraband:
+    errors:
+      messages:
+        uninferable_model:
+          message: "Could not infer model class from importer class %{klass}."
+          summary: "When calling %{klass}.model_class, it is expected that
+            %{klass} is either named as <Service>Importer::<Model> or
+            %{klass}.model_class has been overridden to return the
+            correct class."
+          resolution: "Ensure the importer either follows the naming convention
+            or defines .model_class to return the correct class."
+        uninferable_service:
+          message: "Could not infer service from importer class %{klass}."
+          summary: "When calling %{klass}.service, it is expected that %{klass}
+            is either named as <Service>Importer::<Model> or %{klass}.service
+            has been overridden to return the correct class."
+          resolution: "Ensure the importer either follows the naming convention
+            or defines .service to return the correct service."
