@@ -2,6 +2,12 @@ en:
   contraband:
     errors:
       messages:
+        finder_not_implemented:
+          message: "%{klass}.find is not implemented."
+          summary: "When calling %{klass}.find, it is expected that %{klass}
+            overrides .find to return an instantiated resource for the provided
+            identifier."
+          resolution: "Implement %{klass}.find."
         uninferable_model:
           message: "Could not infer model class from importer class %{klass}."
           summary: "When calling %{klass}.model_class, it is expected that
