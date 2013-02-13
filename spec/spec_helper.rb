@@ -9,6 +9,14 @@ end
 
 require 'contraband'
 
+require 'active_support/dependencies'
+
+# Simulate a Rails app's autoloading of models and importers
+DUMMY_ROOT = File.join(File.dirname(__FILE__), 'dummy', 'app')
+%w(models importers).each do |path|
+  ActiveSupport::Dependencies.autoload_paths << File.join(DUMMY_ROOT, path)
+end
+
 RSpec.configure do |config|
   unless ENV['CI']
     config.filter_run focus: true
