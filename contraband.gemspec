@@ -10,6 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ['gabe@tabeso.com']
   gem.description   = %q{Clean data importation from external resources.}
   gem.summary       = %q{Clean data importation from external resources.}
+  gem.license       = 'MIT'
   gem.homepage      = 'https://github.com/tabeso/contraband'
 
   gem.files         = `git ls-files`.split($/)
