@@ -8,6 +8,7 @@ unless ENV['CI']
 end
 
 require 'contraband'
+require 'contraband/test/rspec_integration'
 
 require 'active_support/dependencies'
 
@@ -18,6 +19,8 @@ DUMMY_ROOT = File.join(File.dirname(__FILE__), 'dummy', 'app')
 end
 
 RSpec.configure do |config|
+  config.include Contraband::RSpecMatchers
+
   unless ENV['CI']
     config.filter_run focus: true
   end
