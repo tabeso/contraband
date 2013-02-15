@@ -8,6 +8,15 @@ en:
             overrides .find to return an instantiated resource for the provided
             identifier."
           resolution: "Implement %{klass}.find."
+        uninferable_importer:
+          message: "Could not infer importer class for %{service} from model
+            class %{klass}."
+          summary: "When calling %{klass}.importer_class(%{service}), it is
+            expected that a class exists with the name %{expected} or
+            %{klass}.importer_class has been overridden to return the
+            correct class."
+          resolution: "Ensure the importer exists and is loaded or the model
+            has overridden .importer_class to return the correct class."
         uninferable_model:
           message: "Could not infer model class from importer class %{klass}."
           summary: "When calling %{klass}.model_class, it is expected that

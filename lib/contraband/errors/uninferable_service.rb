@@ -1,6 +1,7 @@
 module Contraband
   module Errors
 
+    ##
     # Raised when the service of an importer cannot be detected.
     class UninferableService < ContrabandError
 

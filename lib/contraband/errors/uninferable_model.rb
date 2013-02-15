@@ -1,6 +1,7 @@
 module Contraband
   module Errors
 
+    ##
     # Raised when the model class of an importer cannot be detected.
     class UninferableModel < ContrabandError
 
