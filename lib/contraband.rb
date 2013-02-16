@@ -3,6 +3,7 @@ require 'active_support/core_ext'
 
 require 'contraband/version'
 require 'contraband/errors'
+require 'contraband/importer'
 require 'contraband/railtie' if defined?(Rails)
 
 # Add English load path by default

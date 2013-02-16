@@ -1,5 +1,7 @@
 require 'hashie'
 
+require 'contraband/attributes'
+
 module Contraband
   class Importer
     include Attributes
