@@ -2,6 +2,7 @@ require 'hashie'
 
 require 'contraband/attributes'
 require 'contraband/callbacks'
+require 'contraband/processing'
 
 module Contraband
   class Importer
