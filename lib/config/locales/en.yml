@@ -2,6 +2,13 @@ en:
   contraband:
     errors:
       messages:
+        deferred_importer_missing:
+          message: "DeferredImport is not defined."
+          summary: "Asynchronous importing requires a DeferredImport model which
+            handles storing and enqueuing jobs for processing."
+          resolution: "Implement a DeferredImport model, or install the
+            necessary extensions. See https://github.com/tabeso/contraband-mongoid
+            for more information."
         finder_not_implemented:
           message: "%{klass}.find is not implemented."
           summary: "When calling %{klass}.find, it is expected that %{klass}

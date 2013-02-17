@@ -15,7 +15,7 @@ module Contraband
       #
       # @return [String]
       #   The composed message.
-      def compose_message(key, attributes)
+      def compose_message(key, attributes = {})
         @problem = problem(key, attributes)
         @summary = summary(key, attributes)
         @resolution = resolution(key, attributes)
