@@ -9,7 +9,7 @@ module Contraband
       # Create the new error.
       #
       # @example Create the error.
-      #   DeferredImporterMissing.new(Status)
+      #     DeferredImporterMissing.new
       def initialize
         super(
           compose_message(

@@ -9,7 +9,7 @@ module Contraband
       # Create the new error.
       #
       # @example Create the error.
-      #   ImportDeferred.new(Status)
+      #     ImportDeferred.new(Status)
       #
       # @param [Class] klass
       #   The importer class.

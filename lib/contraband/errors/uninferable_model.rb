@@ -9,7 +9,7 @@ module Contraband
       # Create the new error.
       #
       # @example Create the error.
-      #   UninferableModel.new(TwitterImporter::Status)
+      #     UninferableModel.new(TwitterImporter::Status)
       #
       # @param [Class] klass
       #   The importer class.

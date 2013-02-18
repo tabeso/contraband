@@ -9,7 +9,7 @@ module Contraband
       # Create the new error.
       #
       # @example Create the error.
-      #   UninferableImporter.new(Status)
+      #     UninferableImporter.new(Status)
       #
       # @param [Symbol] service
       #   The service of the missing importer.
