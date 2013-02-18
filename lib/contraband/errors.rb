@@ -1,6 +1,7 @@
 require 'contraband/errors/contraband_error'
 require 'contraband/errors/deferred_importer_missing'
 require 'contraband/errors/finder_not_implemented'
+require 'contraband/errors/import_deferred'
 require 'contraband/errors/uninferable_importer'
 require 'contraband/errors/uninferable_model'
 require 'contraband/errors/uninferable_service'

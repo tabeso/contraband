@@ -15,6 +15,13 @@ en:
             overrides .find to return an instantiated resource for the provided
             identifier."
           resolution: "Implement %{klass}.find."
+        import_deferred:
+          message: "The import was deferred while processing data for %{klass}."
+          summary: "When a related record cannot be found for association,
+            the import is halted and enqueued for deferred execution."
+          resolution: "You should never see this method unless you've overridden
+            something. It's possible there is a bug in the gem. Please report
+            issues at https://github.com/tabeso/contraband."
         uninferable_importer:
           message: "Could not infer importer class for %{service} from model
             class %{klass}."
