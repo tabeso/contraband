@@ -63,8 +63,8 @@ describe Contraband::Processing do
 
   describe '#import' do
 
-    it 'calls #process' do
-      importer.should_receive(:process)
+    it 'calls #process_attributes' do
+      importer.should_receive(:process_attributes)
       importer.model.should_receive(:changed?).and_return(false)
       importer.import
     end
@@ -99,10 +99,10 @@ describe Contraband::Processing do
     end
   end
 
-  describe '#process' do
+  describe '#process_attributes' do
 
     it 'assigns each assignable attribute on the model' do
-      importer.send(:process)
+      importer.send(:process_attributes)
       expect(importer.model.attributes).to eq(
         'id'      => '123',
         'message' => 'This is a tweet.',

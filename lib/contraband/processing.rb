@@ -16,7 +16,7 @@ module Contraband
 
     def import
       run_callbacks :import do
-        process
+        process_attributes
       end
 
       model.changed? ? save : true
@@ -30,7 +30,7 @@ module Contraband
 
     protected
 
-    def process
+    def process_attributes
       assignable_attributes.each do |attribute|
         model.send(:"#{attribute}=", send(attribute))
       end
@@ -38,6 +38,10 @@ module Contraband
 
     def save
       model.respond_to?(:save_with) ? model.save_with(service) : model.save
+    end
+
+    def defer
+      raise Errors::ImportDeferred, self
     end
   end # Processing
 end # Contraband
