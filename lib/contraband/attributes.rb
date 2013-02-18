@@ -1,7 +1,7 @@
 module Contraband
   ##
   # Stores the alias and priority of an attribute.
-  class Attribute < Struct.new(:alias, :priority); end
+  class Attribute < Struct.new(:key, :priority); end
 
   ##
   # Provides attribute definition helpers as well as priority and assignment
@@ -68,7 +68,7 @@ module Contraband
       end
 
       def has_attribute?(attr)
-        attributes.has_key?(attr) || attributes.values.collect(&:alias).include?(attr)
+        attributes.has_key?(attr) || attributes.values.collect(&:key).include?(attr)
       end
 
       def priority_of(attr)

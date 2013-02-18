@@ -21,7 +21,7 @@ module Contraband
       end
 
       def as(key)
-        @expected_alias = key
+        @expected_key = key
         self
       end
 
@@ -35,7 +35,7 @@ module Contraband
       end
 
       def failure_message_for_should
-        "expected #{@actual.inspect} to have attribute#{@attributes.count > 1 ? 's' : ''} #{@attributes.collect(&:inspect).join(', ')}#{message_as_alias}#{message_with_priority}"
+        "expected #{@actual.inspect} to have attribute#{@attributes.count > 1 ? 's' : ''} #{@attributes.collect(&:inspect).join(', ')}#{message_as_key}#{message_with_priority}"
       end
 
       def failure_message_for_should_not
@@ -43,7 +43,7 @@ module Contraband
       end
 
       def description
-        "has attribute#{@attributes.count > 1 ? 's' : ''} #{@attributes.collect(&:inspect).join(', ')}#{message_as_alias}#{message_with_priority}"
+        "has attribute#{@attributes.count > 1 ? 's' : ''} #{@attributes.collect(&:inspect).join(', ')}#{message_as_key}#{message_with_priority}"
       end
 
       private
@@ -51,7 +51,7 @@ module Contraband
       def find_failing_attributes(actual, filter_method)
         @actual = actual.is_a?(Class) ? actual : actual.class
         @failing_attributes = @attributes.__send__(filter_method) do |name|
-          @actual.has_attribute?(name) && matches_priority?(name) && matches_alias?(name)
+          @actual.has_attribute?(name) && matches_priority?(name) && matches_key?(name)
         end
       end
 
@@ -60,17 +60,17 @@ module Contraband
         @actual.attributes[name].try(:priority) == @expected_priority
       end
 
-      def matches_alias?(name)
-        return true unless @expected_alias
-        @actual.attributes[name].try(:alias) == @expected_alias
+      def matches_key?(name)
+        return true unless @expected_key
+        @actual.attributes[name].try(:key) == @expected_key
       end
 
       def message_with_priority
         @expected_priority ? " with priority #{@expected_priority}" : ''
       end
 
-      def message_as_alias
-        @expected_alias ? " as #{@expected_alias.inspect}" : ''
+      def message_as_key
+        @expected_key ? " as #{@expected_key.inspect}" : ''
       end
     end # HaveAttributeMatcher
   end # RSpecMatchers

@@ -79,14 +79,14 @@ describe Contraband::Attributes do
 
     it 'strips trailing question marks from keys' do
       importer.attribute :frenzied?
-      expect(importer.attributes[:frenzied?].alias).to eq(:frenzied)
+      expect(importer.attributes[:frenzied?].key).to eq(:frenzied)
     end
 
     context 'when an alias is specified' do
 
       it 'does not make any changes to the key' do
         importer.attribute :frenzied?, as: :awesome?
-        expect(importer.attributes[:frenzied?].alias).to eq(:awesome?)
+        expect(importer.attributes[:frenzied?].key).to eq(:awesome?)
       end
     end
 
