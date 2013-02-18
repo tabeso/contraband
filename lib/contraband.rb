@@ -44,8 +44,7 @@ module Contraband
   #   The resource data to be imported.
   #
   def import_async(model, service, id, data = {})
-    defined?(DeferredImport) or raise Errors::DeferredImporterMissing
-    DeferredImport.import(model.importer_class(service), id, data)
+    model.importer_class(service).import_async(id, data)
   end
 
   def logger

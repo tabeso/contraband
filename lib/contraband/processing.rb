@@ -7,6 +7,11 @@ module Contraband
       def import(resource)
         new(resource).import
       end
+
+      def import_async(id, data = {})
+        defined?(DeferredImport) or raise Errors::DeferredImporterMissing
+        DeferredImport.import(self, id, data)
+      end
     end # ClassMethods
 
     def import

@@ -14,23 +14,11 @@ describe Contraband do
 
   describe '.import_async' do
 
-    context 'when DeferredImport is not defined' do
-
-      it 'raises Errors::DeferredImporterMissing' do
-        expect {
-          Contraband.import_async(Status, :facebook, '123')
-        }.to raise_error(Contraband::Errors::DeferredImporterMissing)
-      end
-    end
-
-    context 'when DeferrredImport is defined' do
-
-      it 'calls DeferredImport.import with model, service, id, and data' do
-        deferred_importer = double('DeferredImport')
-        deferred_importer.should_receive(:import).with(TwitterImporter::Status, '123', { foo: 'bar', baz: 'bloop' })
-        stub_const('DeferredImport', deferred_importer)
-        Contraband.import_async(Status, :twitter, '123', { foo: 'bar', baz: 'bloop' })
-      end
+    it 'passes provided identifier and data to Contraband::Importer.import_async' do
+      TwitterImporter::Status.should_receive(:import_async).with(
+        '123', message: 'i just ate a sandwich'
+      )
+      Contraband.import_async(Status, :twitter, '123', message: 'i just ate a sandwich')
     end
   end
 end
