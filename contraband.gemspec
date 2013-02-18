@@ -21,6 +21,10 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'activemodel', '>= 3.0', '< 3.3'
   gem.add_dependency 'hashie', '>= 1.0', '< 1.3'
 
+  gem.add_development_dependency 'mongoid'
+  gem.add_development_dependency 'mongoid-rspec'
+  gem.add_development_dependency 'sidekiq'
+
   gem.add_development_dependency 'active_attr', '~> 0.7'
 
   gem.add_development_dependency 'bundler'
