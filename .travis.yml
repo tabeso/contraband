@@ -16,6 +16,9 @@ notifications:
     recipients:
       - dev@tabeso.com
 
+services:
+  - mongodb
+
 matrix:
   allow_failures:
     - rvm: jruby-19mode
