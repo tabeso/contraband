@@ -128,7 +128,7 @@ module Contraband
     #   Whether the attribute can be assigned.
     def can_assign?(attr)
       return false unless attributes[attr].present?
-      model.respond_to?(:can_assign?) ? model.can_assign?(attr) : true
+      model.respond_to?(:can_assign?) ? model.can_assign?(service, attr) : true
     end
 
     ##

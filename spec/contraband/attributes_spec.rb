@@ -164,7 +164,8 @@ describe Contraband::Attributes do
 
         model = double('model')
         model.should_receive(:respond_to?).with(:can_assign?).and_return(true)
-        model.should_receive(:can_assign?).with(:title).and_return(:foo)
+        model.should_receive(:can_assign?).with(:bar, :title).and_return(:foo)
+        importer.any_instance.should_receive(:service).once.and_return(:bar)
         importer.any_instance.should_receive(:model).twice.and_return(model)
 
         expect(importer.new(nil).can_assign?(:title)).to eq(:foo)
@@ -189,7 +190,7 @@ describe Contraband::Attributes do
 
     let(:model) do
       Class.new do
-        def self.can_assign?(attr)
+        def self.can_assign?(service, attr)
           case attr
           when :foo, :bar
             true
@@ -202,6 +203,7 @@ describe Contraband::Attributes do
 
     it 'returns every assignable attribute' do
       importer.attributes :foo, :bar, :baz
+      importer.any_instance.should_receive(:service).at_least(1).times.and_return(:bar)
       importer.any_instance.should_receive(:model).at_least(1).times.and_return(model)
 
       expect(importer.new(nil).assignable_attributes).to eq([:foo, :bar])
