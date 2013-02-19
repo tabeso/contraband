@@ -16,10 +16,13 @@ module Contraband
 
     def import
       run_callbacks :import do
+        process_relations
         process_attributes
       end
 
       model.changed? ? save : true
+    rescue Errors::ImportDeferred
+      false
     end
 
     def model
@@ -30,6 +33,12 @@ module Contraband
 
     protected
 
+    def process_relations
+      relations.keys.each do |relation|
+        model.send(:"#{relation}=", send(relation))
+      end
+    end
+
     def process_attributes
       assignable_attributes.each do |attribute|
         model.send(:"#{attribute}=", send(attribute))
@@ -37,7 +46,7 @@ module Contraband
     end
 
     def save
-      model.respond_to?(:save_with) ? model.save_with(service) : model.save
+      model.respond_to?(:save_with) ? model.save_with(service, id) : model.save
     end
 
     def defer

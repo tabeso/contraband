@@ -3,12 +3,14 @@ require 'hashie'
 require 'contraband/attributes'
 require 'contraband/callbacks'
 require 'contraband/processing'
+require 'contraband/relations'
 
 module Contraband
   class Importer
     include Attributes
     include Callbacks
     include Processing
+    include Relations
 
     ##
     # The regexp for finding the service and model from a class name.

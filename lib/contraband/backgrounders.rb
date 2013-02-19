@@ -1,0 +1,1 @@
+require 'contraband/backgrounders/sidekiq'

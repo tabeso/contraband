@@ -3,8 +3,12 @@ require 'active_support/core_ext'
 
 require 'contraband/version'
 require 'contraband/errors'
+require 'contraband/backgrounders'
+require 'contraband/config'
 require 'contraband/importable'
 require 'contraband/importer'
+require 'contraband/sourceful'
+require 'contraband/worker'
 require 'contraband/railtie' if defined?(Rails)
 
 # Add English load path by default
@@ -47,9 +51,19 @@ module Contraband
     model.importer_class(service).import_async(id, data)
   end
 
+  def configure
+    yield(config) if block_given?
+  end
+
+  def config
+    @config ||= Config.new
+  end
+
   def logger
     @logger ||= (rails_logger || default_logger)
   end
+
+  delegate(*(Config.public_instance_methods(false) - [ :logger=, :logger ] << { to: :config }))
 
   private
 

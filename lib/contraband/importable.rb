@@ -8,6 +8,10 @@ module Contraband
   module Importable
     extend ActiveSupport::Concern
 
+    included do
+      include Contraband::Sourceful
+    end
+
     module ClassMethods
 
       ##

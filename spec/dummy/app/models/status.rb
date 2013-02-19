@@ -1,14 +1,7 @@
-require 'active_attr'
-
 class Status
-  include ActiveAttr::Model
+  include Mongoid::Document
   include Contraband::Importable
 
-  attribute :id
-  attribute :message
-  attribute :author
-
-  def self.find_or_initialize_by_source_id_and_service(id, service)
-    new(id: id)
-  end
+  field :message, type: String
+  field :author,  type: String
 end

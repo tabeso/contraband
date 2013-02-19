@@ -10,6 +10,10 @@ end
 require 'contraband'
 require 'contraband/test/rspec_integration'
 
+Contraband.configure do |config|
+  config.backgrounder :sidekiq
+end
+
 require 'active_support/dependencies'
 
 # Simulate a Rails app's autoloading of models and importers

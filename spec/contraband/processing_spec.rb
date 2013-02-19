@@ -43,6 +43,15 @@ describe Contraband::Processing do
 
     context 'when DeferredImport is not defined' do
 
+      before do
+        DeferredImport
+        Object.send(:remove_const, :DeferredImport)
+      end
+
+      after do
+        require 'dummy/app/models/deferred_import'
+      end
+
       it 'raises Errors::DeferredImporterMissing' do
         expect {
           importer_class.import_async('123')
@@ -50,7 +59,7 @@ describe Contraband::Processing do
       end
     end
 
-    context 'when DeferrredImport is defined' do
+    context 'when DeferredImport is defined' do
 
       it 'calls DeferredImport.import with self, id, and data' do
         deferred_importer = double('DeferredImport')
@@ -103,8 +112,7 @@ describe Contraband::Processing do
 
     it 'assigns each assignable attribute on the model' do
       importer.send(:process_attributes)
-      expect(importer.model.attributes).to eq(
-        'id'      => '123',
+      expect(importer.model.attributes).to include(
         'message' => 'This is a tweet.',
         'author'  => 'Captain Obvious'
       )
@@ -115,9 +123,9 @@ describe Contraband::Processing do
 
     context 'when model responds to :save_with' do
 
-      it 'saves model with the importer service' do
+      it 'saves model with the importer service and resource identifier' do
         importer.model.should_receive(:respond_to?).with(:save_with).and_return(true)
-        importer.model.should_receive(:save_with).with(importer.service)
+        importer.model.should_receive(:save_with).with(importer.service, importer.id)
         importer.send(:save)
       end
     end
