@@ -49,7 +49,7 @@ module Contraband
       protected
 
       def enqueue
-        Contraband.backgrounder.perform_async(id.to_s)
+        Contraband.backgrounder.perform_async(self)
       end
     end # DeferredImport
   end # Mongoid

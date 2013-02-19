@@ -47,91 +47,91 @@ describe Contraband::Mongoid::DeferredImport do
 
   describe 'after create' do
 
-    context 'when data is present' do
-
-      it 'enqueues itself through Contraband::ImportWorker' do
-        pending
-      end
+    subject(:import) do
+      DeferredImport.new(processor: TwitterImporter::Status, data: { foo: 'bar' })
     end
 
-    context 'when data is not present' do
-
-      it 'enqueues itself through ThrottledImportWorker' do
-        pending
-      end
+    it 'enqueues itself' do
+      expect {
+        import.save
+      }.to change(Contraband.backgrounder.worker_class.jobs, :size).by(1)
+      expect(Contraband.backgrounder.worker_class.jobs.last['args']).to eq([import.id.to_s])
     end
   end
 
   describe '.import' do
 
-    let(:import) do
-      DeferredImport.last
-    end
-
-    context 'when supplied data' do
-
-      it 'creates with the processor and data' do
-        pending
-      end
-    end
-
-    context 'when supplied a resource identifier' do
-
-      it 'creates with the processor and resource identifier' do
-        pending
-      end
-    end
-
-    describe '#import' do
-
-      context 'when successful' do
-
-        it 'returns true' do
-          pending
-        end
-
-        it 'destroys the record' do
-          pending
-        end
-      end
-
-      context 'when unsuccessful' do
-
-        it 'returns false' do
-          pending
-        end
-
-        it 'does not destroy the record' do
-          pending
-        end
-      end
+    it 'creates new DeferredImport with provided processor, id, and data' do
+      import = DeferredImport.import(TwitterImporter::Status, '456', what: 'is', dis: 'i dont even')
+      expect(import).to be_persisted
+      expect(import.processor).to eq(TwitterImporter::Status)
+      expect(import.resource_id).to eq('456')
+      expect(import.data).to eq(what: 'is', dis: 'i dont even')
     end
   end
 
-  describe '#processor=' do
+  describe '#import' do
 
-    it 'stringifies the class name' do
-      pending
+    subject(:job) do
+      DeferredImport.import(TwitterImporter::Status, '789', message: 'foo', author: 'bar')
     end
-  end
 
-  describe '#processor' do
+    context 'when successful' do
 
-    it 'constantizes the stored string' do
-      pending
+      before do
+        job.processor.should_receive(:import).with(job.to_resource).and_return(true)
+      end
+
+      it 'returns true' do
+        expect(job.import).to be_true
+      end
+
+      it 'destroys the record' do
+        job.import
+        expect(job).to be_destroyed
+      end
+    end
+
+    context 'when unsuccessful' do
+
+      before do
+        job.processor.should_receive(:import).with(job.to_resource).and_return(false)
+      end
+
+      it 'returns false' do
+        expect(job.import).to be_false
+      end
+
+      it 'does not destroy the record' do
+        job.import
+        expect(job).to_not be_destroyed
+      end
     end
   end
 
   describe '#to_resource ' do
 
+    subject(:import) do
+      DeferredImport.new(processor: TwitterImporter::Status)
+    end
+
     context 'when there is data' do
 
-      pending
+      it 'instantiates data through processor' do
+        import.data = { foo: 'bar', baz: 'rawr' }
+        resource = Hashie::Mash.new(import.data)
+        import.processor.should_receive(:instantiate).with(import.data).and_return(resource)
+        expect(import.to_resource).to eq(resource)
+      end
     end
 
     context 'when there is no data' do
 
-      pending
+      it 'finds resource through processor' do
+        import.resource_id = 'foo'
+        import.processor.should_receive(:find).with('foo').and_return(:found_me)
+        expect(import.to_resource).to eq(:found_me)
+      end
     end
   end
 end
