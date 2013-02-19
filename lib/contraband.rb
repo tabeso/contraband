@@ -8,7 +8,7 @@ require 'contraband/config'
 require 'contraband/importable'
 require 'contraband/importer'
 require 'contraband/sourceful'
-require 'contraband/worker'
+require 'contraband/workers'
 require 'contraband/railtie' if defined?(Rails)
 
 # Add English load path by default

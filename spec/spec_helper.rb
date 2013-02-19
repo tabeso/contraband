@@ -7,6 +7,8 @@ unless ENV['CI']
   end
 end
 
+require 'sidekiq'
+
 require 'contraband'
 require 'contraband/test/rspec_integration'
 

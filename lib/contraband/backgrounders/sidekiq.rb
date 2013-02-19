@@ -19,7 +19,7 @@ module Contraband
       alias :perform_at :perform_in
 
       def worker_class
-        @worker_class ||= (options.delete(:worker_class) || Worker)
+        @worker_class ||= (options.delete(:worker_class) || Workers::Sidekiq)
       end
     end
   end # Backgrounders
