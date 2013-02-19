@@ -32,8 +32,8 @@ module Contraband
       end
 
       def create_accessors(generated_methods)
-        create_getter(generated_methods)
-        create_foreign_key_getter(generated_methods)
+        create_getter(name, foreign_key, generated_methods)
+        create_foreign_key_getter(foreign_key, generated_methods)
       end
     end # Base
   end # Relations
